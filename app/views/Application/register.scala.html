@@ -1,0 +1,17 @@
+@(registrationForm: Form[(String, String, String)])
+
+@import helper._
+
+@main("Register to be a user") {
+
+@form(routes.Application.newUser) {
+
+@inputText(registrationForm("email"))
+@inputText(registrationForm("firstName"))
+@inputText(registrationForm("lastName"))
+
+<input type="submit" value="Create">
+
+}
+
+}
