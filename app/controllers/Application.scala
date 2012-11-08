@@ -14,18 +14,23 @@ object Application extends Controller {
     Ok(views.html.Application.register(registrationForm))
   }
 
-  def login(userId: String) = Action {implicit request =>
-    Ok(views.html.Application.login(User(userId, "x", "x", "x")))
+  def login(userId: Long) = Action {
+    implicit request =>
+      User.findBy(userId) match {
+        case Some(user) => Ok(views.html.Application.login(user))
+        case _ => Redirect(routes.Application.register())
+      }
   }
 
-  def newUser = Action { implicit request =>
-    registrationForm.bindFromRequest().fold(
-     errors => BadRequest(views.html.Application.register(registrationForm)),
-     value => {
-       val user: User = User.create(value._1, value._2, value._3)
-       Redirect(routes.Application.login(user.id))
-     }
-    )
+  def newUser = Action {
+    implicit request =>
+      registrationForm.bindFromRequest().fold(
+        errors => BadRequest(views.html.Application.register(registrationForm)),
+        value => {
+          val userId: Long = User.create(value._1, value._2, value._3)
+          Redirect(routes.Application.login(userId))
+        }
+      )
 
   }
 
@@ -36,7 +41,7 @@ object Application extends Controller {
     "email" -> nonEmptyText,
     "firstName" -> nonEmptyText,
     "lastName" -> nonEmptyText
-   )
+  )
   )
 }
 
