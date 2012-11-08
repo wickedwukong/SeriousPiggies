@@ -1,4 +1,4 @@
-@(registrationForm: Form[(String, String, String)])
+@(registrationForm: Form[(String, String, String, String)])
 
 @import helper._
 
@@ -9,6 +9,7 @@
 @inputText(registrationForm("email"))
 @inputText(registrationForm("firstName"))
 @inputText(registrationForm("lastName"))
+@inputText(registrationForm("password"))
 
 <input type="submit" value="Create">
 

@@ -4,10 +4,10 @@
 
 CREATE SEQUENCE user_id_seq;
 CREATE TABLE user (
-    id integer NOT NULL DEFAULT nextval('user_id_seq'),
-    email varchar(128),
-    firstName varchar(256),
-    lastName varchar(256)
+    id integer NOT NULL DEFAULT nextval('user_id_seq') PRIMARY KEY,
+    email varchar(128) not null,
+    firstName varchar(256) not null,
+    lastName varchar(256) not null
 );
 
 # --- !Downs

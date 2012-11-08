@@ -27,7 +27,7 @@ object Application extends Controller {
       registrationForm.bindFromRequest().fold(
         errors => BadRequest(views.html.Application.register(registrationForm)),
         value => {
-          val userId: Long = User.create(value._1, value._2, value._3)
+          val userId: Long = User.create(value._1, value._2, value._3, value._4)
           Redirect(routes.Application.login(userId))
         }
       )
@@ -40,7 +40,8 @@ object Application extends Controller {
   val registrationForm = Form(tuple(
     "email" -> nonEmptyText,
     "firstName" -> nonEmptyText,
-    "lastName" -> nonEmptyText
+    "lastName" -> nonEmptyText,
+    "password" -> nonEmptyText
   )
   )
 }
